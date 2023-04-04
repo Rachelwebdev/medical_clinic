@@ -75,8 +75,15 @@ CREATE INDEX ON medical_histories (treatment_id);
 ALTER TABLE medical_histories DROP CONSTRAINT fk_patients;
 ALTER TABLE medical_histories DROP CONSTRAINT fk_treatments;
 
-
 /* Command to drop the indexes on the medical_histories table with patient_id and treatment_id columns */
 
 DROP INDEX index_name_patient_id;
 DROP INDEX index_name_treatment_id;
+
+/* Command To undo the dropping the foreign key constraint on the medical_histories table with patient_id column,*/
+
+ALTER TABLE medical_histories ADD CONSTRAINT fk_patients FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+/*recreating the index on the medical_histories table for the patient_id column*/
+
+CREATE INDEX index_name_patient_id ON medical_histories (patient_id);
