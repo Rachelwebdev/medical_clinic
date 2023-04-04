@@ -70,6 +70,8 @@ CREATE INDEX ON medical_histories (patient_id);
 
 CREATE INDEX ON medical_histories (treatment_id);
 
+
+
 /* Commands to alter the medical_histories table foreign key constraints with patient_id and treatment_id columns */
 
 ALTER TABLE medical_histories DROP CONSTRAINT fk_patients;
