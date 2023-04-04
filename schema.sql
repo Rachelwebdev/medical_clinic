@@ -18,3 +18,18 @@ CREATE TABLE invoices (
     payed_at TIMESTAMP,
     medical_history_id INT FOREIGN KEY REFERENCES medical_histories(id)
 )
+
+CREATE TABLE invoice_items (
+    id SERIAL PRIMARY KEY,
+    unit_price DECIMAL,
+    quantity INT,
+    total_price DECIMAL,
+    invoice_id INT FOREIGN KEY REFERENCES invoices(id),
+    treatment_id INT FOREIGN KEY REFERENCES treatments(id)
+)
+
+CREATE TABLE treatments (
+    id SERIAL PRIMARY KEY,
+    type VARCHAR(250),
+    name VARCHAR(250)
+)
