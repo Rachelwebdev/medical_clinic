@@ -7,7 +7,7 @@ CREATE TABLE patients (
 CREATE TABLE medical_histories (
     id SERIAL PRIMARY KEY,
     admitted_at TIMESTAMP,
-    patient_id INT FOREIGN KEY REFERENCES patients(id),
+    CONSTRAINT fk_patients FOREIGN KEY(patient_id) REFERENCES patients(id),
     status VARCHAR(250)
 )
 
@@ -16,7 +16,7 @@ CREATE TABLE invoices (
     total_amount DECIMAL,
     generated_at TIMESTAMP,
     payed_at TIMESTAMP,
-    medical_history_id INT FOREIGN KEY REFERENCES medical_histories(id)
+    CONSTRAINT fk_medical_histories FOREIGN KEY(medical_history_id) REFERENCES medical_histories(id)
 )
 
 CREATE TABLE invoice_items (
@@ -24,8 +24,8 @@ CREATE TABLE invoice_items (
     unit_price DECIMAL,
     quantity INT,
     total_price DECIMAL,
-    invoice_id INT FOREIGN KEY REFERENCES invoices(id),
-    treatment_id INT FOREIGN KEY REFERENCES treatments(id)
+    CONSTRAINT fk_invoices FOREIGN KEY(invoice_id) REFERENCES invoices(id),
+    CONSTRAINT fk_treatments FOREIGN KEY(treatment_id) REFERENCES treatments(id)      
 )
 
 CREATE TABLE treatments (
@@ -33,3 +33,16 @@ CREATE TABLE treatments (
     type VARCHAR(250),
     name VARCHAR(250)
 )
+
+CREATE TABLE medical_history_treatments (
+    id SERIAL PRIMARY KEY,
+    medical_history_id INT NOT NULL,
+    treatment_id INT NOT NULL,
+    FOREIGN KEY (medical_history_id) REFERENCES medical_histories (id),
+    FOREIGN KEY (treatment_id) REFERENCES treatments (id)
+);
+
+
+CREATE INDEX ON medical_history_treatments (medical_history_id);
+
+CREATE INDEX ON medical_history_treatments (treatment_id);
