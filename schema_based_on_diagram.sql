@@ -65,6 +65,18 @@ CREATE INDEX ON invoice_items (treatment_id);
 
 CREATE INDEX ON invoices (medical_history_id);
 
+
 CREATE INDEX ON medical_histories (patient_id);
 
 CREATE INDEX ON medical_histories (treatment_id);
+
+/* Commands to alter the medical_histories table foreign key constraints with patient_id and treatment_id columns */
+
+ALTER TABLE medical_histories DROP CONSTRAINT fk_patients;
+ALTER TABLE medical_histories DROP CONSTRAINT fk_treatments;
+
+
+/* Command to drop the indexes on the medical_histories table with patient_id and treatment_id columns */
+
+DROP INDEX index_name_patient_id;
+DROP INDEX index_name_treatment_id;
